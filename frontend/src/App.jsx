@@ -1,122 +1,193 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import UserDashboard from './components/UserDashboard';
+import LeafletRiskMap from './components/LeafletRiskMap';
+import RescueOperations from './components/RescueOperations';
+import ProfileView from './components/ProfileView';
+import AdminPanel from './components/AdminPanel';
+import AuthModal from './components/AuthModal';
+import SosModal from './components/SosModal';
+import RegionDetailModal from './components/RegionDetailModal';
+import DemoModal from './components/DemoModal';
+import { SEED_REGIONS, apiService } from './services/api';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [activeTab, setActiveTab] = useState('landing'); // 'landing' | 'dashboard' | 'map' | 'rescue' | 'profile' | 'admin'
+  const [selectedRegion, setSelectedRegion] = useState(SEED_REGIONS[0]); // Default Patiala, Punjab matching image
+  
+  // User state
+  const [user, setUser] = useState({
+    id: 1,
+    name: 'Rajni Sharma',
+    email: 'rajni@example.com',
+    location: 'Patiala, Punjab',
+    phone: '+91 98765 43210',
+    role: 'CITIZEN'
+  });
+
+  // Modal States
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authInitialTab, setAuthInitialTab] = useState('login');
+  const [sosModalOpen, setSosModalOpen] = useState(false);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
+  const [modalRegion, setModalRegion] = useState(SEED_REGIONS[0]);
+
+  // Check backend health on mount
+  useEffect(() => {
+    apiService.checkHealth().then(status => {
+      console.log('[FloodRadarX] Backend status:', status);
+    });
+  }, []);
+
+  const handleOpenAuth = (tab = 'login') => {
+    setAuthInitialTab(tab);
+    setAuthModalOpen(true);
+  };
+
+  const handleAuthSuccess = (authenticatedUser) => {
+    setUser(authenticatedUser);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('floodradar_token');
+    setActiveTab('landing');
+  };
+
+  const handleOpenDetail = (region) => {
+    setModalRegion(region || selectedRegion);
+    setDetailModalOpen(true);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-white">
+      
+      {/* Top Universal Navbar */}
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        user={user}
+        onOpenAuth={handleOpenAuth}
+        onLogout={handleLogout}
+        onOpenSos={() => setSosModalOpen(true)}
+        selectedRegion={selectedRegion}
+        onSelectRegion={setSelectedRegion}
+      />
 
-      <div className="ticks"></div>
+      {/* Main Dynamic View Area based on Active Tab */}
+      <div className="flex-1 flex flex-col">
+        {activeTab === 'landing' && (
+          <HeroSection
+            onNavigate={setActiveTab}
+            onSelectRegion={(reg) => {
+              setSelectedRegion(reg);
+              setModalRegion(reg);
+            }}
+            onOpenDemo={() => setDemoModalOpen(true)}
+          />
+        )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {activeTab === 'dashboard' && (
+          <UserDashboard
+            user={user}
+            onNavigate={setActiveTab}
+            onOpenSos={() => setSosModalOpen(true)}
+            selectedRegion={selectedRegion}
+            onSelectRegion={setSelectedRegion}
+            onOpenDetail={handleOpenDetail}
+          />
+        )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {activeTab === 'map' && (
+          <LeafletRiskMap
+            selectedRegion={selectedRegion}
+            onSelectRegion={setSelectedRegion}
+            onOpenDetail={handleOpenDetail}
+            onOpenSos={() => setSosModalOpen(true)}
+          />
+        )}
+
+        {activeTab === 'rescue' && (
+          <RescueOperations
+            onOpenSos={() => setSosModalOpen(true)}
+          />
+        )}
+
+        {activeTab === 'profile' && (
+          <ProfileView
+            user={user}
+            onUpdateUser={setUser}
+            onNavigate={setActiveTab}
+            onOpenSos={() => setSosModalOpen(true)}
+          />
+        )}
+
+        {activeTab === 'admin' && (
+          <AdminPanel
+            onOpenSos={() => setSosModalOpen(true)}
+          />
+        )}
+      </div>
+
+      {/* Interactive Global Modals */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialTab={authInitialTab}
+        onAuthSuccess={handleAuthSuccess}
+      />
+
+      <SosModal
+        isOpen={sosModalOpen}
+        onClose={() => setSosModalOpen(false)}
+        selectedRegion={selectedRegion}
+      />
+
+      <RegionDetailModal
+        isOpen={detailModalOpen}
+        onClose={() => setDetailModalOpen(false)}
+        region={modalRegion}
+        onNavigateMap={() => {
+          setSelectedRegion(modalRegion);
+          setActiveTab('map');
+        }}
+      />
+
+      <DemoModal
+        isOpen={demoModalOpen}
+        onClose={() => setDemoModalOpen(false)}
+        onExploreMap={() => setActiveTab('map')}
+      />
+
+      {/* Persistent Bottom Quick-Navigation Dock for Easy Switching between the 6 picture screens */}
+      <footer className="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 bg-slate-900/90 border border-cyan-500/30 px-3 py-1.5 rounded-full shadow-2xl backdrop-blur-xl flex items-center gap-1.5 text-xs">
+        <span className="text-[10px] text-cyan-400/80 font-bold uppercase tracking-wider px-2 hidden sm:inline">
+          Screens:
+        </span>
+        {[
+          { id: 'landing', label: '1. Hero' },
+          { id: 'dashboard', label: '2. Dashboard' },
+          { id: 'map', label: '3. Risk Map' },
+          { id: 'rescue', label: '4. Rescue' },
+          { id: 'profile', label: '5. Profile' },
+          { id: 'admin', label: '6. Admin' }
+        ].map(screen => (
+          <button
+            key={screen.id}
+            onClick={() => setActiveTab(screen.id)}
+            className={`px-2.5 py-1 rounded-full font-semibold transition-all ${
+              activeTab === screen.id
+                ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/25'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            {screen.label}
+          </button>
+        ))}
+      </footer>
+
+    </div>
+  );
 }
-
-export default App
