@@ -1,0 +1,32 @@
+[
+  {
+    "device_id": "ESP32-FL-001",
+    "station_id": "CWC_PAT_G01",
+    "sensor_type": "JSN-SR04T_ULTRASONIC",
+    "timestamp": "2026-11-21T18:00:00Z",
+    "distance_cm": 245.8,
+    "sensor_offset_m": 52.0,
+    "calculated_water_level_m": 49.542,
+    "warning_threshold_m": 49.2,
+    "danger_threshold_m": 50.2,
+    "battery_voltage_mv": 3920,
+    "signal_rssi_dbm": -68,
+    "firmware_version": "v1.2.0",
+    "quality_flag": "VALID"
+  },
+  {
+    "device_id": "ESP32-FL-002",
+    "station_id": "CWC_SIL_B01",
+    "sensor_type": "JSN-SR04T_ULTRASONIC",
+    "timestamp": "2026-11-21T18:00:00Z",
+    "distance_cm": 112.4,
+    "sensor_offset_m": 21.0,
+    "calculated_water_level_m": 19.876,
+    "warning_threshold_m": 19.83,
+    "danger_threshold_m": 20.4,
+    "battery_voltage_mv": 4010,
+    "signal_rssi_dbm": -62,
+    "firmware_version": "v1.2.0",
+    "quality_flag": "VALID"
+  }
+]

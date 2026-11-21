@@ -1,0 +1,24 @@
+{
+  "status": "SUCCESS",
+  "metadata": {
+    "sensor": "Sentinel-1A C-SAR",
+    "mode": "IW",
+    "polarization": "VV",
+    "baseline_date": "2021-06-15",
+    "crisis_date": "2021-08-14",
+    "spatial_resolution_m": 10.0,
+    "crs": "EPSG:4326",
+    "bbox_wgs84": [
+      85.05,
+      25.55,
+      85.25,
+      25.7
+    ]
+  },
+  "water_threshold_db": -15.2,
+  "flooded_pixel_count": 8117,
+  "estimated_flood_area_sqkm": 100.01,
+  "polygon_count": 2,
+  "geojson_file": "C:\\Projects\\FloodRadarX\\ai-ml\\data\\processed\\geospatial\\flood_extent.geojson",
+  "geotiff_file": "C:\\Projects\\FloodRadarX\\ai-ml\\data\\processed\\geospatial\\flood_extent_mask.tif"
+}

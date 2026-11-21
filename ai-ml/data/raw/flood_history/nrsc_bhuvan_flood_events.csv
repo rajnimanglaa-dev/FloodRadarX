@@ -1,0 +1,8 @@
+event_id,event_date,region_id,district,state,river_basin,severity,flooded_area_sqkm,flood_label,verification_status,source_reference
+FL-BH-2019-01,2019-09-28,3,Patna,Bihar,Ganga Basin,SEVERE,320.5,1,VERIFIED_OFFICIAL,ISRO-NRSC Bhuvan Flood Portal (https://bhuvan.nrsc.gov.in)
+FL-BH-2021-01,2021-08-14,3,Patna,Bihar,Ganga Basin,HIGH,185.0,1,VERIFIED_OFFICIAL,Central Water Commission (CWC)
+FL-AS-2022-01,2022-06-20,4,Cachar,Assam,Barak Basin,CATASTROPHIC,540.0,1,VERIFIED_OFFICIAL,ISRO-NRSC Bhuvan / ASDMA
+FL-KL-2018-01,2018-08-15,6,Wayanad,Kerala,Kabini Basin,CATASTROPHIC,290.0,1,VERIFIED_OFFICIAL,KSDMA / NRSC Satellite Assessment
+FL-TN-2015-01,2015-12-01,10,Chennai,Tamil Nadu,Adyar-Cooum,CATASTROPHIC,410.0,1,VERIFIED_OFFICIAL,ISRO-NRSC / CWC
+FL-TN-2023-01,2023-12-04,10,Chennai,Tamil Nadu,Adyar-Cooum,SEVERE,260.0,1,VERIFIED_OFFICIAL,IMD / TNSDMA (Cyclone Michaung)
+FL-PB-2023-01,2023-07-10,1,Ludhiana,Punjab,Sutlej Basin,MODERATE,95.0,1,VERIFIED_OFFICIAL,Punjab Dept of Water Resources / CWC

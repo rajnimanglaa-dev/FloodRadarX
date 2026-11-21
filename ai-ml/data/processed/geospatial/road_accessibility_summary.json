@@ -1,0 +1,18 @@
+{
+  "total_roads_evaluated": 6,
+  "inundated_roads_count": 5,
+  "proximity_alert_roads_count": 0,
+  "passable_elevated_roads_count": 1,
+  "inundated_corridors": [
+    "Loknayak Ganga Path (Marine Drive)",
+    "Ashok Rajpath (Low-lying Riverfront Corridor)",
+    "Diara Floodplain Connecting Road",
+    "Jawaharlal Nehru Marg (Bailey Road Arterial)",
+    "AIIMS-Digha Elevated Corridor (Safe Relief Arterial)"
+  ],
+  "proximity_alert_corridors": [],
+  "recommended_evacuation_routes": [
+    "NH-30 Southern Elevated Expressway (Evacuation Corridor)"
+  ],
+  "geojson_file": "C:\\Projects\\FloodRadarX\\ai-ml\\data\\processed\\geospatial\\road_accessibility.geojson"
+}

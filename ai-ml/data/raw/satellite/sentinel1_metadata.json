@@ -1,0 +1,20 @@
+{
+  "sensor": "Sentinel-1A / C-SAR",
+  "mode": "IW (Interferometric Wide Swath)",
+  "polarizations": [
+    "VV",
+    "VH"
+  ],
+  "product_type": "GRD (Ground Range Detected High Resolution)",
+  "resolution_m": 10.0,
+  "pass_direction": "DESCENDING",
+  "baseline_scene_id": "S1A_IW_GRDH_1SDV_20210615T001234_BASELINE_WATER",
+  "crisis_scene_id": "S1A_IW_GRDH_1SDV_20210814T001234_FLOOD_SURGE",
+  "footprint_bbox": [
+    84.95,
+    25.45,
+    85.35,
+    25.75
+  ],
+  "source_portal": "Copernicus Data Space Ecosystem (https://dataspace.copernicus.eu/)"
+}
